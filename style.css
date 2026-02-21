@@ -1,0 +1,165 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #f2f4f8;
+    text-align: center;
+}
+
+/* HEADER */
+header {
+    background: #ef5350;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* ARENA */
+#battle-arena {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+.player-area {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    flex: 1;
+    transition: transform 0.2s ease;
+}
+
+.player-area:hover {
+    transform: translateY(-3px);
+}
+
+.search-box {
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 60%;
+}
+
+button {
+    padding: 8px 16px;
+    background: #3b4cca;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #2a36a3;
+}
+
+#battle-controls {
+    margin-top: 20px;
+}
+
+/* CARD DO POKÉMON */
+.card {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #fafafa;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   BARRA DE HP
+========================= */
+
+.hp-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.hp-fill {
+    height: 100%;
+    width: 100%;
+    background-color: green;
+    transition: width 0.5s ease;
+}
+
+/* BOTÃO ESCONDIDO */
+.hidden {
+    display: none;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    animation: aparecer 0.3s ease-in-out;
+}
+
+.modal-content h2 {
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+@keyframes aparecer {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* RESPONSIVIDADE */
+@media (min-width: 768px) {
+    #battle-arena {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
