@@ -1,80 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon Battle Simulator</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PokeBattle Arena</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>PokeBattle Sim</h1> 
-    </header>
+<header>
+  <div class="header-container">
+    <img src="images/logo.jpg" alt="Logo" class="logo">
+    <h1> PokeBattle Arena</h1>
+  </div>
+</header>
 
-    <main>
+<main>
 
-        <section id="battle-arena">
+    <div class="arena">
 
-            <!-- Jogador 1 -->
-            <section class="player-area" id="player-1">
-                <h2>Jogador 1</h2>
-
-                <div class="search-box">
-                    <input type="text" placeholder="Nome do Pokémon" id="input-p1">
-                    <button type="button" id="btn-p1">Buscar</button>
+        <!-- JOGADOR 1 -->
+        <div class="player-area" id="player-1">
+            <h2>Jogador 1</h2>
+            
+            <div class="selection-box">
+                <input id="input-p1" placeholder="Nome do Pokémon ou ID">
+                <div class="btn-group">
+                    <button class="btn-select" onclick="buscarPokemon(1)">Buscar</button>
+                    <button class="btn-select" onclick="pokemonAleatorio(1)">Eu escolho você!</button>
                 </div>
-
-                <!-- DISPLAY DO POKÉMON 1 -->
-                <div class="pokemon-display" id="display-p1">
-                    <!-- O JavaScript vai inserir aqui:
-                         - Imagem
-                         - Nome
-                         - Tipo
-                         - Barra de HP
-                    -->
-                </div>
-            </section>
-
-            <!-- Jogador 2 -->
-            <section class="player-area" id="player-2">
-                <h2>Jogador 2</h2>
-
-                <div class="search-box">
-                    <input type="text" placeholder="Nome do Pokémon" id="input-p2">
-                    <button type="button" id="btn-p2">Buscar</button>
-                </div>
-
-                <!-- DISPLAY DO POKÉMON 2 -->
-                <div class="pokemon-display" id="display-p2">
-                    <!-- O JavaScript vai inserir aqui:
-                         - Imagem
-                         - Nome
-                         - Tipo
-                         - Barra de HP
-                    -->
-                </div>
-            </section>
-
-        </section>
-
-        <!-- CONTROLES -->
-        <section id="battle-controls">
-            <button id="btn-batalhar" class="hidden">BATALHAR!</button>
-        </section>
-
-        <!-- MODAL DE RESULTADO -->
-        <div id="modal-result" class="modal hidden">
-            <div class="modal-content">
-                <h2 id="winner-text">Vencedor!</h2>
-                <p id="score-text"></p>
-                <button id="btn-reiniciar">Jogar Novamente</button>
             </div>
+
+            <div id="display-p1" class="pokemon-display"></div>
         </div>
 
-    </main>
+        <div class="vs">VS</div>
 
-    <script src="script.js"></script>
+        <!-- JOGADOR 2 -->
+        <div class="player-area" id="player-2">
+            <h2>Jogador 2</h2>
+            
+            <div class="selection-box">
+                <input id="input-p2" placeholder="Nome do Pokémon ou ID">
+                <div class="btn-group">
+                    <button class="btn-select" onclick="buscarPokemon(2)">Buscar</button>
+                    <button class="btn-select" onclick="pokemonAleatorio(2)">Eu escolho você!</button>
+                </div>
+            </div>
 
+            <div id="display-p2" class="pokemon-display"></div>
+        </div>
+
+    </div>
+
+    <!-- BATALHA -->
+    <button id="btn-batalhar" class="hidden btn-battle"> INICIAR BATALHA</button>
+
+    <!-- MODAL DE RESULTADO -->
+    <div id="modal" class="modal">
+        <div class="modal-box">
+            <h2 id="resultado"></h2>
+            <button id="btn-reiniciar" class="btn-select" onclick="reiniciar()">Jogar novamente</button>
+        </div>
+    </div>
+
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
