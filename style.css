@@ -1,297 +1,604 @@
 /* =============================
-   ESTILO BASE
+   VARIÁVEIS E RESET
 ============================= */
-
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    color: white;
-    text-align: center;
-    background: url("images/arena.jpg") no-repeat center center fixed;
-    background-size: cover;
-    min-height: 100vh;
+:root {
+  --azul:      #3b4cca;
+  --azul-dark: #2a36a3;
+  --vermelho:  #cc0000;
+  --amarelo:   #ffcb05;
+  --branco:    #ffffff;
+  --preto:     #1a1a1a;
+  --cinza:     rgba(0,0,0,0.6);
+  --radius:    12px;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Classe utilitária para labels de acessibilidade */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =============================
+   BODY E FUNDO
+============================= */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--branco);
+  text-align: center;
+  background: url("images/arena.jpg") no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =============================
+   HEADER
+============================= */
 header {
-    header {
-        background: transparent;
-        padding: 0;
-        margin: 0;
-    }
+  background: rgba(0,0,0,0.75);
+  padding: 16px 20px;
+  border-bottom: 3px solid var(--amarelo);
 }
 
 .header-container {
-    display: flex;
-    align-items: center;
-    /* centraliza verticalmente */
-    justify-content: center;
-    /* centraliza horizontalmente */
-    gap: 12px;
-    /* espaço entre logo e texto */
-    margin-bottom: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .header-container h1 {
-    font-size: 24px;
-    color: white;
-    margin: 0;
-    font-size: 80px;
-    text-shadow: 5px 5px #000;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(16px, 4vw, 36px);
+  color: var(--amarelo);
+  text-shadow: 3px 3px 0 var(--preto), -1px -1px 0 var(--vermelho);
+  letter-spacing: 1px;
 }
 
 .logo {
-    width: 350px;
-    /* ajuste o tamanho da logo */
-    height: 220px;
+  width: clamp(40px, 8vw, 60px);
+  height: auto;
+  border-radius: 50%;
 }
 
 /* =============================
-   ARENA E PLAYERS
+   MAIN
 ============================= */
+main {
+  flex: 1;
+  padding: 20px 16px 40px;
+}
 
-
-
+/* =============================
+   ARENA — MOBILE FIRST
+============================= */
 .arena {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    margin-top: -20px;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;    /* Mobile: empilhado */
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
+/* =============================
+   PLAYER AREA
+============================= */
 .player-area {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 20px;
-    border-radius: 12px;
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  background: var(--cinza);
+  border: 2px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(6px);
+  padding: 20px 16px;
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+.player-area h2 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(12px, 3vw, 18px);
+  color: var(--amarelo);
+  text-shadow: 2px 2px var(--preto);
 }
 
 /* =============================
-PLAYER COLUMN
+   SLOT (cada pokémon)
 ============================= */
-
-.player-column {
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-
+.slot {
+  background: rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 12px;
+  width: 100%;
 }
 
-
-/* label jogador */
-
-.player-label {
-
-    font-size: 28px;
-    font-weight: bold;
-    font-family: 'Pixelify Sans', sans-serif;
-    color: #FFD700;
-
-    text-shadow:
-        2px 2px 0 #FF0000,
-        4px 4px 0 #000;
-
-}
-
-
-/* linha com 2 pokemons */
-
-.pokemon-row {
-
-    display: flex;
-    gap: 10px;
-
-}
-
-
-/* caixa pokemon */
-
-.pokemon-title {
-
-    font-family: 'Pixelify Sans', sans-serif;
-    font-size: 30px;
-    margin-bottom: 5px;
-    margin-top: 0;
-    color: #FFD700;
-
-    text-shadow:
-        2px 2px 0 #FF0000,
-        4px 4px 0 #000;
-
-}
-
-.player-box {
-
-    background: rgba(0, 0, 0, 0.6);
-
-    padding: 15px;
-
-    border-radius: 12px;
-
-    width: 220px;
-
-    box-shadow: 0 0 15px black;
-
+.slot h3 {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* =============================
-   INPUT E BOTÕES
+   FORMULÁRIO DE BUSCA
 ============================= */
-
-
 .selection-box {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .selection-box input {
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    width: 90%;
-    font-size: 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  width: 100%;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  background: rgba(255,255,255,0.92);
+  color: var(--preto);
+  transition: border 0.2s;
+}
+
+.selection-box input:focus {
+  outline: none;
+  border-color: var(--azul);
 }
 
 .btn-group {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
+  display: flex;
+  gap: 8px;
 }
 
+/* =============================
+   BOTÕES
+============================= */
 .btn-select {
-    padding: 3px 15px;
-    border: none;
-    border-radius: 8px;
-    background: #3b4cca;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+  flex: 1;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 8px;
+  background: var(--azul);
+  color: white;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
 }
 
 .btn-select:hover {
-    background: #2a36a3;
-    transform: scale(1.05);
+  background: var(--azul-dark);
+  transform: scale(1.04);
+}
+
+.btn-random {
+  background: #2e7d32;
+}
+.btn-random:hover {
+  background: #1b5e20;
 }
 
 .btn-battle {
-    margin-top: 30px;
-    padding: 15px 30px;
-    font-size: 18px;
-    background: linear-gradient(to right, #f44336, #ff9800);
-    border-radius: 12px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    text-shadow: 2px 2px #000;
+  margin-top: 24px;
+  padding: 16px 40px;
+  font-size: clamp(14px, 3vw, 20px);
+  font-family: 'Press Start 2P', monospace;
+  background: linear-gradient(135deg, var(--vermelho), #ff5722);
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 20px rgba(204,0,0,0.5);
+  text-shadow: 1px 1px 3px #000;
+  animation: pulse 2s infinite;
 }
 
 .btn-battle:hover {
-    transform: scale(1.1);
+  transform: scale(1.07);
+  box-shadow: 0 10px 30px rgba(204,0,0,0.7);
 }
 
+.btn-battle:disabled {
+  animation: none;
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 6px 20px rgba(204,0,0,0.5); }
+  50%       { box-shadow: 0 6px 30px rgba(204,0,0,0.9); }
+}
+
+.hidden {
+  display: none !important;
+}
 
 /* =============================
-   POKEMON DISPLAY E HP
+   CARD DO POKÉMON
 ============================= */
-
-.pokemon-display {
-    margin-top: 10px;
-    width: 100%;
-    position: relative;
+.pokemon-card {
+  margin-top: 10px;
+  animation: fadeIn 0.4s ease;
 }
 
-.pokemon-display img {
-    width: 180px;
-    animation: float 2s infinite ease-in-out;
-    display: block;
-    margin: auto;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pokemon-img {
+  width: clamp(90px, 20vw, 140px);
+  display: block;
+  margin: 0 auto 8px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
 }
 
 @keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
 }
 
-.hp-bar {
-    background: #ddd;
-    height: 22px;
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 10px 0;
+.pokemon-name {
+  font-size: clamp(13px, 2.5vw, 16px);
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--branco);
+  margin-bottom: 6px;
 }
 
-.hp {
-    background: #4caf50;
-    height: 100%;
-    width: 100%;
-    transition: width 0.5s ease-in-out;
+/* =============================
+   TIPOS
+============================= */
+.tipos {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.tipo {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  text-shadow: 1px 1px rgba(0,0,0,0.4);
+}
+
+/* Cores por tipo */
+.tipo-fire      { background: #F08030; }
+.tipo-water     { background: #6890F0; }
+.tipo-grass     { background: #78C850; }
+.tipo-electric  { background: #F8D030; color: #333; }
+.tipo-ice       { background: #98D8D8; color: #333; }
+.tipo-fighting  { background: #C03028; }
+.tipo-poison    { background: #A040A0; }
+.tipo-ground    { background: #E0C068; color: #333; }
+.tipo-flying    { background: #A890F0; }
+.tipo-psychic   { background: #F85888; }
+.tipo-bug       { background: #A8B820; }
+.tipo-rock      { background: #B8A038; }
+.tipo-ghost     { background: #705898; }
+.tipo-dragon    { background: #7038F8; }
+.tipo-dark      { background: #705848; }
+.tipo-steel     { background: #B8B8D0; color: #333; }
+.tipo-fairy     { background: #EE99AC; }
+.tipo-normal    { background: #A8A878; }
+
+/* =============================
+   BARRAS DE STATS
+============================= */
+.stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  margin: 6px 0;
+}
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.stat-bar-bg {
+  flex: 1;
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.stat-bar {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.6s ease;
+}
+
+.stat-val {
+  font-size: 11px;
+  color: var(--branco);
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.total-stats {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--amarelo);
+  margin-top: 6px;
+  text-shadow: 1px 1px #000;
+}
+
+/* =============================
+   TOTAL DO JOGADOR
+============================= */
+.player-total {
+  background: rgba(255,203,5,0.15);
+  border: 1px solid var(--amarelo);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: clamp(13px, 2.5vw, 15px);
+  font-weight: 700;
+  color: var(--amarelo);
+  width: 100%;
+}
+
+.player-total span {
+  font-size: clamp(18px, 4vw, 24px);
+  display: block;
+  margin-top: 4px;
 }
 
 /* =============================
    VS CENTRAL
 ============================= */
-
 .vs {
-    font-family: 'Pixelify Sans', sans-serif;
-    font-size: 75px;
-    font-weight: bold;
-    color: #FFD700;
-    align-self: center;
-    margin: 20px;
-    text-shadow:
-        3px 3px 0 #FF0000,
-        6px 6px 0 #000;
-    
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(24px, 6vw, 48px);
+  color: var(--branco);
+  text-shadow: 3px 3px var(--preto), 0 0 20px var(--amarelo);
+}
+
+/* =============================
+   LOADING
+============================= */
+.loading {
+  padding: 20px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+}
+
+.pokeball-spin {
+  font-size: 28px;
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* =============================
+   MENSAGEM DE ERRO
+============================= */
+.error-msg {
+  background: rgba(204,0,0,0.3);
+  border: 1px solid var(--vermelho);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #ffb3b3;
+  animation: fadeIn 0.3s ease;
 }
 
 /* =============================
    MODAL DE RESULTADO
 ============================= */
-
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
 }
 
 .modal-box {
-    background: #1a1a1a;
-    padding: 40px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+  background: linear-gradient(160deg, #1a1a2e, #16213e);
+  border: 2px solid var(--amarelo);
+  padding: clamp(24px, 5vw, 50px);
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(255,203,5,0.3);
+  max-width: 480px;
+  width: 100%;
+  animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes modalIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.modal-trophy {
+  font-size: clamp(48px, 10vw, 72px);
+  margin-bottom: 12px;
+  animation: bounce 0.6s ease 0.3s both;
+}
+
+@keyframes bounce {
+  0%   { transform: scale(0); }
+  70%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
 .modal-box h2 {
-    font-size: 32px;
-    margin-bottom: 25px;
-    text-shadow: 2px 2px #000;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(13px, 3vw, 20px);
+  color: var(--amarelo);
+  text-shadow: 2px 2px var(--preto);
+  margin-bottom: 20px;
+  line-height: 1.6;
 }
 
-.modal-box button {
-    font-size: 18px;
+/* =============================
+   SCORES NO MODAL
+============================= */
+.modal-scores {
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.score-label {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.score-value {
+  font-size: 14px;
+  color: var(--amarelo);
+  font-weight: 700;
+}
+
+.bonus-tag {
+  background: #2e7d32;
+  color: #a5d6a7;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 700;
+  display: inline-block;
+  margin-left: 4px;
+}
+
+.btn-reiniciar {
+  font-size: 15px;
+  padding: 12px 28px;
+  background: var(--azul);
+}
+
+/* =============================
+   FOOTER
+============================= */
+footer {
+  background: rgba(0,0,0,0.75);
+  border-top: 2px solid var(--amarelo);
+  padding: 14px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+footer a {
+  color: var(--amarelo);
+  text-decoration: none;
+}
+footer a:hover { text-decoration: underline; }
+
+/* =============================
+   MEDIA QUERIES — TABLET (≥600px)
+============================= */
+@media (min-width: 600px) {
+  .player-area {
+    max-width: 460px;
+  }
+  .slot {
+    padding: 16px;
+  }
+  .btn-group {
+    flex-direction: row;
+  }
+}
+
+/* =============================
+   MEDIA QUERIES — DESKTOP (≥960px)
+============================= */
+@media (min-width: 960px) {
+  .arena {
+    flex-direction: row;           /* Desktop: lado a lado */
+    align-items: flex-start;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: nowrap;
+  }
+
+  .player-area {
+    max-width: 360px;
+    flex: 1;
+  }
+
+  .vs {
+    align-self: center;
+    flex-shrink: 0;
+  }
+
+  .header-container h1 {
+    font-size: 40px;
+  }
+}
+
+/* =============================
+   MEDIA QUERIES — WIDE DESKTOP (≥1200px)
+============================= */
+@media (min-width: 1200px) {
+  .player-area {
+    max-width: 420px;
+  }
+
+  .pokemon-img {
+    width: 150px;
+  }
 }
