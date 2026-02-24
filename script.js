@@ -1,7 +1,10 @@
 // =================================
 // SISTEMA DE ÁUDIO UNIVERSAL
-// funciona em TODOS navegadores
 // =================================
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 const sounds = {
     battle: new Audio("sounds/battle.mp3"),
@@ -12,256 +15,450 @@ const sounds = {
 
 sounds.battle.loop = true;
 sounds.battle.volume = 0.4;
-sounds.hit.volume = 0.7;
-sounds.victory.volume = 0.7;
+sounds.hit.volume = 0.5;
+sounds.victory.volume = 0.6;
 sounds.click.volume = 0.7;
 
-// desbloqueia audio no primeiro clique
+
 let audioUnlocked = false;
+
 function unlockAudio() {
     if (audioUnlocked) return;
+
     Object.values(sounds).forEach(sound => {
-        sound.play().then(() => {
-            sound.pause();
-            sound.currentTime = 0;
-        }).catch(() => { });
+        sound.play()
+            .then(() => {
+                sound.pause();
+                sound.currentTime = 0;
+            })
+            .catch(() => { });
     });
+
     audioUnlocked = true;
 }
 
-// funções de som
-function playClick() { sounds.click.currentTime = 0; sounds.click.play().catch(() => {}); }
-function playCry(name) {
-    const cry = new Audio(`https://play.pokemonshowdown.com/audio/cries/${name.toLowerCase()}.mp3`);
-    cry.volume = 0.7;
-    cry.play().catch(()=>{});
+function playClick() {
+    sounds.click.currentTime = 0;
+    sounds.click.play().catch(() => { });
 }
-function startBattleMusic() { sounds.battle.currentTime = 0; sounds.battle.play().catch(()=>{}); }
-function stopBattleMusic() { sounds.battle.pause(); }
-function playHit() { sounds.hit.currentTime = 0; sounds.hit.play().catch(()=>{}); }
-function playVictory() { stopBattleMusic(); sounds.victory.currentTime = 0; sounds.victory.play().catch(()=>{}); }
+
+function playCry(name) {
+    const cry = new Audio(
+        `https://play.pokemonshowdown.com/audio/cries/${name}.mp3`
+    );
+    cry.volume = 0.4;
+    cry.play().catch(() => { });
+}
+
+function startBattleMusic() {
+    sounds.battle.currentTime = 0;
+    sounds.battle.play().catch(() => { });
+}
+
+function stopBattleMusic() {
+    sounds.battle.pause();
+    sounds.battle.currentTime = 0;
+}
+
+function playHit() {
+    sounds.hit.currentTime = 0;
+    sounds.hit.play().catch(() => { });
+}
+
+function playVictory() {
+    stopBattleMusic();
+    sounds.victory.currentTime = 0;
+    sounds.victory.play().catch(() => { });
+}
+
 
 // =================================
-// ESTADO
+// ESTADO GLOBAL
 // =================================
-let jogadores = {
-    1: { hp: 0, maxHp: 0, selecionado: false, nome: "" },
-    2: { hp: 0, maxHp: 0, selecionado: false, nome: "" }
-};
+
+let jogadores;
+let battleInterval = null;
+let batalhaAtiva = false;
+
+function criarEstadoInicial() {
+
+    return {
+
+        1: {
+            1: { hp: 0, maxHp: 0, selecionado: false, nome: "" },
+            2: { hp: 0, maxHp: 0, selecionado: false, nome: "" }
+        },
+
+        2: {
+            1: { hp: 0, maxHp: 0, selecionado: false, nome: "" },
+            2: { hp: 0, maxHp: 0, selecionado: false, nome: "" }
+        }
+
+    };
+
+}
+
+jogadores = criarEstadoInicial();
+
 
 // =================================
-// BUSCAR POKEMON
+// BUSCAR
 // =================================
-async function buscarPokemon(player){
-    const input = document.getElementById(`input-p${player}`);
-    const nome = input.value.toLowerCase().trim();
 
-    if(!nome){
+async function buscarPokemon(player, slot) {
+
+    const input =
+        document.getElementById(`input-p${player}-${slot}`);
+
+    const nome =
+        input.value.toLowerCase().trim();
+
+    if (!nome) {
+
         alert("Digite um nome");
-        return; // aqui já retorna, sem tocar som
+        return;
+
     }
 
     unlockAudio();
-    playClick();   // som de clique
+    playClick();
 
-    carregarPokemon(player, nome);
+    carregarPokemon(player, slot, nome);
+
 }
 
+
 // =================================
-// POKEMON ALEATORIO
+// ALEATORIO
 // =================================
-function pokemonAleatorio(player){
+
+function pokemonAleatorio(player, slot) {
+
     unlockAudio();
-    playClick();   // som de clique
+    playClick();
 
-    const id = Math.floor(Math.random()*1025)+1;
-    carregarPokemon(player, id);
+    const id =
+        Math.floor(Math.random() * 1025) + 1;
+
+    carregarPokemon(player, slot, id);
+
 }
 
+
 // =================================
-// FUNÇÕES DE POKEMON
+// CARREGAR
 // =================================
-async function carregarPokemon(player, nome) {
-    const display = document.getElementById(`display-p${player}`);
+
+async function carregarPokemon(player, slot, nome) {
+
+    const display =
+        document.getElementById(`display-p${player}-${slot}`);
+
     display.innerHTML = "Carregando...";
 
     try {
-        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nome}`);
-        const data = await res.json();
-        const hp = data.stats[0].base_stat;
 
-        jogadores[player] = { hp, maxHp: hp, selecionado: true, nome: data.name };
+        const res =
+            await fetch(
+                `https://pokeapi.co/api/v2/pokemon/${nome}`
+            );
 
-        display.innerHTML = `<img src="${data.sprites.other["official-artwork"].front_default}">
+        const data =
+            await res.json();
+
+        const hp =
+            data.stats[0].base_stat;
+
+        jogadores[player][slot] = {
+
+            hp,
+            maxHp: hp,
+            selecionado: true,
+            nome: data.name
+
+        };
+
+        display.innerHTML = `
+
+        <img src="${data.sprites.other["official-artwork"].front_default}">
+
         <h3>${data.name.toUpperCase()}</h3>
-        <div class="hp-bar"><div class="hp" id="hp-${player}"></div></div>
-        <span id="hp-text-${player}">${hp}/${hp}</span>`;
 
-        atualizarHP(player);
+        <div class="hp-bar">
+            <div class="hp"
+            id="hp-${player}-${slot}"
+            style="width:100%"></div>
+        </div>
+
+        <span id="hp-text-${player}-${slot}">
+        ${hp}/${hp}
+        </span>
+
+        `;
+
+        await delay(650); // tempo entre click e cry
         playCry(data.name);
+
         verificarBotao();
+
 
     }
     catch {
-        display.innerHTML = "Erro ao carregar";
+
+        display.innerHTML = "Erro";
+
     }
+
 }
 
-// =================================
-// HP
-// =================================
-function atualizarHP(player) {
-    const j = jogadores[player];
-    const percent = (j.hp / j.maxHp) * 100;
-    document.getElementById(`hp-${player}`).style.width = percent + "%";
-    document.getElementById(`hp-text-${player}`).innerText = `${Math.max(0, j.hp)}/${j.maxHp}`;
-}
 
 // =================================
-// BOTÃO
+// ATUALIZAR HP INDIVIDUAL
 // =================================
+
+function atualizarHP(player, slot) {
+
+    const p =
+        jogadores[player][slot];
+
+    const percent =
+        Math.max(0, (p.hp / p.maxHp) * 100);
+
+    document.getElementById(
+        `hp-${player}-${slot}`
+    ).style.width =
+        percent + "%";
+
+    document.getElementById(
+        `hp-text-${player}-${slot}`
+    ).innerText =
+        `${Math.max(0, p.hp)}/${p.maxHp}`;
+
+}
+
+
+// =================================
+// SOMA TOTAL HP
+// =================================
+
+function totalHP(player) {
+
+    return (
+        jogadores[player][1].hp +
+        jogadores[player][2].hp
+    );
+
+}
+
+
+// =================================
+// VALIDAR BOTÃO
+// =================================
+
+function todosSelecionados() {
+
+    return (
+
+        jogadores[1][1].selecionado &&
+        jogadores[1][2].selecionado &&
+        jogadores[2][1].selecionado &&
+        jogadores[2][2].selecionado
+
+    );
+
+}
+
 function verificarBotao() {
-    if (jogadores[1].selecionado && jogadores[2].selecionado) {
-        document.getElementById("btn-batalhar").classList.remove("hidden");
+
+    const btn =
+        document.getElementById("btn-batalhar");
+
+    if (todosSelecionados()) {
+
+        btn.classList.remove("hidden");
+
     }
+    else {
+
+        btn.classList.add("hidden");
+
+    }
+
 }
 
+
 // =================================
-// BATALHA
+// BATALHA 2v2 REAL
 // =================================
+
 function batalhar() {
+
+    if (!todosSelecionados()) {
+
+        alert("Escolha todos os pokémons!");
+        return;
+
+    }
+
+    if (batalhaAtiva) return;
+
+    batalhaAtiva = true;
+
+    unlockAudio();
     startBattleMusic();
 
-    const btn = document.getElementById("btn-batalhar");
+    const btn =
+        document.getElementById("btn-batalhar");
+
     btn.disabled = true;
     btn.innerText = "Batalhando...";
 
-    const loop = setInterval(() => {
+    battleInterval =
+        setInterval(() => {
+
+            atacar(1, 2);
+            atacar(2, 1);
+
+            if (totalHP(1) <= 0 || totalHP(2) <= 0) {
+
+                finalizar();
+
+            }
+
+        }, 800);
+
+}
+
+
+// =================================
+// ATAQUE SIMULTÂNEO
+// =================================
+
+function atacar(atacante, defensor) {
+
+    for (let slot = 1; slot <= 2; slot++) {
+
+        const alvo =
+            jogadores[defensor][slot];
+
+        if (alvo.hp <= 0) continue;
+
+        const dano =
+            Math.floor(Math.random() * 15) + 5;
+
+        alvo.hp -= dano;
+
+        atualizarHP(defensor, slot);
+
         playHit();
-        const dano1 = Math.floor(Math.random() * 18) + 5;
-        const dano2 = Math.floor(Math.random() * 18) + 5;
 
-        jogadores[1].hp -= dano2;
-        jogadores[2].hp -= dano1;
+    }
 
-        atualizarHP(1);
-        atualizarHP(2);
+}
 
-        if (jogadores[1].hp <= 0 || jogadores[2].hp <= 0) {
-            clearInterval(loop);
-            finalizar();
+
+// =================================
+// FINALIZAR
+// =================================
+
+function finalizar() {
+
+    clearInterval(battleInterval);
+
+    batalhaAtiva = false;
+
+    playVictory();
+
+    let texto = "";
+
+    const hp1 = totalHP(1);
+    const hp2 = totalHP(2);
+
+    if (hp1 > hp2)
+        texto = "Jogador 1 venceu!";
+
+    else if (hp2 > hp1)
+        texto = "Jogador 2 venceu!";
+
+    else
+        texto = "Empate!";
+
+    document.getElementById(
+        "resultado"
+    ).innerText = texto;
+
+    document.getElementById(
+        "modal"
+    ).style.display = "flex";
+
+}
+
+
+// =================================
+// REINICIAR
+// =================================
+
+function reiniciar() {
+
+    clearInterval(battleInterval);
+
+    batalhaAtiva = false;
+
+    stopBattleMusic();
+
+    sounds.victory.pause();
+    sounds.victory.currentTime = 0;
+
+    jogadores =
+        criarEstadoInicial();
+
+    for (let p = 1; p <= 2; p++) {
+
+        for (let s = 1; s <= 2; s++) {
+
+            document.getElementById(
+                `display-p${p}-${s}`
+            ).innerHTML = "";
+
+            document.getElementById(
+                `input-p${p}-${s}`
+            ).value = "";
+
         }
 
-    }, 700);
-}
+    }
 
-// =================================
-// FINAL
-// =================================
-function finalizar() {
-    playVictory();
-    let texto = "";
-    if (jogadores[1].hp > jogadores[2].hp) texto = "Jogador 1 venceu!";
-    else if (jogadores[2].hp > jogadores[1].hp) texto = "Jogador 2 venceu!";
-    else texto = "Empate!";
+    const btn =
+        document.getElementById("btn-batalhar");
 
-    document.getElementById("resultado").innerText = texto;
-
-    const modal = document.getElementById("modal");
-    modal.style.display = "flex";
-
-    // =================================
-    // BOTÃO JOGAR NOVAMENTE
-    // =================================
-    const btnReiniciar = modal.querySelector("button");
-    btnReiniciar.onclick = () => {
-        unlockAudio();
-        playClick();
-        reiniciar();
-    };
-}
-
-// =================================
-// REINICIAR SEM RECARREGAR
-// =================================
-function reiniciar() {
-    // Toca som de clique
-    sounds.click.currentTime = 0;
-    sounds.click.play().catch(()=>{});
-
-    // Para todas as músicas
-    stopBattleMusic();
-    sounds.victory.pause();
-    sounds.victory.currentTime = 0;
-
-    // Reseta jogadores
-    jogadores = {
-        1: { hp: 0, maxHp: 0, selecionado: false, nome: "" },
-        2: { hp: 0, maxHp: 0, selecionado: false, nome: "" }
-    };
-
-    // Limpa displays
-    document.getElementById("display-p1").innerHTML = "";
-    document.getElementById("display-p2").innerHTML = "";
-
-    // Limpa inputs
-    document.getElementById("input-p1").value = "";
-    document.getElementById("input-p2").value = "";
-
-    // Reseta botão batalha
-    const btn = document.getElementById("btn-batalhar");
-    btn.classList.add("hidden");
     btn.disabled = false;
     btn.innerText = "INICIAR BATALHA";
+    btn.classList.add("hidden");
 
-    // Fecha modal
-    document.getElementById("modal").style.display = "none";
+    document.getElementById(
+        "modal"
+    ).style.display = "none";
+
 }
 
-// =================================
-// PARAR TODAS AS MÚSICAS
-// =================================
-function stopAllSounds() {
-    stopBattleMusic();
-    sounds.hit.pause();
-    sounds.hit.currentTime = 0;
-    sounds.victory.pause();
-    sounds.victory.currentTime = 0;
-}
 
 // =================================
-// EVENTO
+// EVENTOS
 // =================================
-document.addEventListener("DOMContentLoaded", () => {
 
-    // =================================
-    // BOTÃO INICIAR BATALHA
-    // =================================
-    document.getElementById("btn-batalhar").onclick = batalhar;
+document.addEventListener(
+    "DOMContentLoaded", () => {
 
-    // =================================
-    // BOTÕES BUSCAR e EU ESCOLHO VOCÊ
-    // =================================
-    const btnBuscar1 = document.querySelector('#input-p1 + button');
-    const btnAleatorio1 = btnBuscar1.nextElementSibling;
-    const btnBuscar2 = document.querySelector('#input-p2 + button');
-    const btnAleatorio2 = btnBuscar2.nextElementSibling;
+        document.getElementById(
+            "btn-batalhar"
+        ).onclick = batalhar;
 
-    [btnBuscar1, btnAleatorio1, btnBuscar2, btnAleatorio2].forEach(btn => {
-        btn.addEventListener('click', () => {
+        document.getElementById(
+            "btn-reiniciar"
+        ).onclick = () => {
             unlockAudio();
             playClick();
-        });
-    });
+            reiniciar();
+        };
 
-    // =================================
-    // BOTÃO JOGAR NOVAMENTE (REINICIAR)
-    // =================================
-    const btnReiniciar = document.querySelector('#modal button');
-    btnReiniciar.addEventListener('click', () => {
-        unlockAudio();
-        playClick();
-        reiniciar();
     });
-
-});

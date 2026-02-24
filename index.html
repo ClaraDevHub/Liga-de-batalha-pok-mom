@@ -5,64 +5,144 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PokeBattle Arena</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
   <div class="header-container">
     <img src="images/logo.jpg" alt="Logo" class="logo">
-    <h1> PokeBattle Arena</h1>
   </div>
 </header>
 
 <main>
 
-    <div class="arena">
+<div class="arena">
 
-        <!-- JOGADOR 1 -->
-        <div class="player-area" id="player-1">
-            <h2>Jogador 1</h2>
-            
-            <div class="selection-box">
-                <input id="input-p1" placeholder="Nome do Pokémon ou ID">
-                <div class="btn-group">
-                    <button class="btn-select" onclick="buscarPokemon(1)">Buscar</button>
-                    <button class="btn-select" onclick="pokemonAleatorio(1)">Eu escolho você!</button>
-                </div>
-            </div>
+    <!-- =============================
+         JOGADOR 1
+    ============================= -->
+    <div class="player-column">
 
-            <div id="display-p1" class="pokemon-display"></div>
+        <div class="player-label">
+            Jogador 1
         </div>
 
-        <div class="vs">VS</div>
+        <div class="pokemon-row">
 
-        <!-- JOGADOR 2 -->
-        <div class="player-area" id="player-2">
-            <h2>Jogador 2</h2>
-            
-            <div class="selection-box">
-                <input id="input-p2" placeholder="Nome do Pokémon ou ID">
-                <div class="btn-group">
-                    <button class="btn-select" onclick="buscarPokemon(2)">Buscar</button>
-                    <button class="btn-select" onclick="pokemonAleatorio(2)">Eu escolho você!</button>
+            <!-- BOX 1 -->
+            <div class="player-box">
+
+                <div class="selection-box">
+                    <h1 class="pokemon-title">pokemon 1</h1>
+                    <input id="input-p1-1" placeholder="nome ou id do Pokémon">
+                    <div class="btn-group">
+                        <button onclick="buscarPokemon(1,1)" class="btn-select">Buscar</button>
+                        <button onclick="pokemonAleatorio(1,1)" class="btn-select">Eu escolho você!</button>
+                    </div>
                 </div>
+
+                <div id="display-p1-1" class="pokemon-display"></div>
+
             </div>
 
-            <div id="display-p2" class="pokemon-display"></div>
+
+            <!-- BOX 2 -->
+            <div class="player-box">
+
+                <div class="selection-box">
+                    <h1 class="pokemon-title">pokemon 2</h1>
+                    <input id="input-p1-2" placeholder="nome ou id do Pokémon">
+                    <div class="btn-group">
+                        <button onclick="buscarPokemon(1,2)" class="btn-select">Buscar</button>
+                        <button onclick="pokemonAleatorio(1,2)" class="btn-select">Eu escolho você!</button>
+                    </div>
+                </div>
+
+                <div id="display-p1-2" class="pokemon-display"></div>
+
+            </div>
+
         </div>
 
     </div>
 
-    <!-- BATALHA -->
-    <button id="btn-batalhar" class="hidden btn-battle"> INICIAR BATALHA</button>
 
-    <!-- MODAL DE RESULTADO -->
-    <div id="modal" class="modal">
-        <div class="modal-box">
-            <h2 id="resultado"></h2>
-            <button id="btn-reiniciar" class="btn-select" onclick="reiniciar()">Jogar novamente</button>
+    <!-- VS -->
+    <div class="vs">VS</div>
+
+
+    <!-- =============================
+         JOGADOR 2
+    ============================= -->
+    <div class="player-column">
+
+        <div class="player-label">
+            Jogador 2
         </div>
+
+        <div class="pokemon-row">
+
+            <!-- BOX 1 -->
+            <div class="player-box">
+
+                <div class="selection-box">
+                    <h1 class="pokemon-title">pokemon 1</h1>
+                    <input id="input-p2-1" placeholder="nome ou id do Pokémon">
+                    <div class="btn-group">
+                        <button onclick="buscarPokemon(2,1)" class="btn-select">Buscar</button>
+                        <button onclick="pokemonAleatorio(2,1)" class="btn-select">Eu escolho você!</button>
+                    </div>
+                </div>
+
+                <div id="display-p2-1" class="pokemon-display"></div>
+
+            </div>
+
+
+            <!-- BOX 2 -->
+            <div class="player-box">
+
+                <div class="selection-box">
+                    <h1 class="pokemon-title">pokemon 2</h1>
+                    <input id="input-p2-2" placeholder="nome ou id do Pokémon">
+                    <div class="btn-group">
+                        <button onclick="buscarPokemon(2,2)" class="btn-select">Buscar</button>
+                        <button onclick="pokemonAleatorio(2,2)" class="btn-select">Eu escolho você!</button>
+                    </div>
+                </div>
+
+                <div id="display-p2-2" class="pokemon-display"></div>
+
+            </div>
+
+        </div>
+
     </div>
+
+</div>
+
+
+<!-- BOTÃO BATALHA -->
+<button id="btn-batalhar" class="btn-battle hidden">
+START BATTLE
+</button>
+
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+
+    <div class="modal-box">
+
+        <h2 id="resultado"></h2>
+
+        <button id="btn-reiniciar" class="btn-select">
+            RESTART
+        </button>
+
+    </div>
+
+</div>
 
 </main>
 
