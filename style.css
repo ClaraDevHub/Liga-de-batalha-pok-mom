@@ -9,7 +9,7 @@
   --branco:    #ffffff;
   --preto:     #1a1a1a;
   --cinza:     rgba(0,0,0,0.6);
-  --radius:    12px;
+  --radius:    10px;
 }
 
 *, *::before, *::after {
@@ -52,8 +52,8 @@ body {
 ============================= */
 header {
   background: rgba(0,0,0,0.75);
-  padding: 8px 20px;
-  border-bottom: 3px solid var(--amarelo);
+  padding: 5px 16px;
+  border-bottom: 2px solid var(--amarelo);
   flex-shrink: 0;
 }
 
@@ -61,31 +61,31 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .header-container h1 {
   font-family: 'Press Start 2P', monospace;
-  font-size: clamp(12px, 2.5vw, 24px);
+  font-size: clamp(10px, 2vw, 20px);
   color: var(--amarelo);
-  text-shadow: 3px 3px 0 var(--preto), -1px -1px 0 var(--vermelho);
+  text-shadow: 2px 2px 0 var(--preto), -1px -1px 0 var(--vermelho);
   letter-spacing: 1px;
 }
 
 .logo {
-  width: clamp(30px, 5vw, 45px);
+  width: clamp(24px, 4vw, 36px);
   height: auto;
   border-radius: 50%;
 }
 
 /* =============================
-   MAIN — OCUPA O ESPAÇO RESTANTE
+   MAIN
 ============================= */
 main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 8px 12px 60px; /* 60px deixa espaço pro botão fixo */
+  padding: 6px 10px 54px;
   overflow: hidden;
 }
 
@@ -95,37 +95,41 @@ main {
 .arena {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: center;       /* centraliza verticalmente */
   justify-content: center;
-  gap: 16px;
+  gap: 10px;
   flex: 1;
   overflow: hidden;
 }
 
 /* =============================
-   PLAYER AREA
+   PLAYER AREA — CARD PRINCIPAL
+   ↕ Mexa em min-height e max-height para controlar a altura
+   ↔ Mexa em max-width para controlar a largura
 ============================= */
 .player-area {
   background: var(--cinza);
   border: 2px solid rgba(255,255,255,0.15);
   backdrop-filter: blur(6px);
-  padding: 10px;
+  padding: 7px;
   border-radius: var(--radius);
   flex: 1;
-  max-width: 580px;
+  max-width: 400px;       /* ← LARGURA do card */
+  min-height: 300px;      /* ← ALTURA MÍNIMA do card */
+  max-height: 500px;      /* ← ALTURA MÁXIMA do card */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  gap: 6px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.5);
   overflow: hidden;
 }
 
 .player-area h2 {
   font-family: 'Press Start 2P', monospace;
-  font-size: clamp(9px, 1.5vw, 14px);
+  font-size: clamp(8px, 1.2vw, 12px);
   color: var(--amarelo);
-  text-shadow: 2px 2px var(--preto);
+  text-shadow: 1px 1px var(--preto);
   flex-shrink: 0;
 }
 
@@ -135,19 +139,20 @@ main {
 .slots-wrapper {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
   flex: 1;
   overflow: hidden;
 }
 
 /* =============================
-   SLOT
+   SLOT — CARD INTERNO DO POKÉMON
+   ↕ Mexa em padding para dar mais ou menos espaço interno
 ============================= */
 .slot {
   background: rgba(255,255,255,0.07);
-  border-radius: 8px;
-  padding: 8px;
+  border-radius: 7px;
+  padding: 6px;             /* ← espaço interno do card do Pokémon */
   flex: 1;
   min-width: 0;
   display: flex;
@@ -156,9 +161,9 @@ main {
 }
 
 .slot h3 {
-  font-size: 10px;
+  font-size: 9px;
   color: rgba(255,255,255,0.7);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   text-transform: uppercase;
   letter-spacing: 1px;
   flex-shrink: 0;
@@ -170,16 +175,16 @@ main {
 .selection-box {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
   flex-shrink: 0;
 }
 
 .selection-box input {
-  padding: 6px 10px;
-  border-radius: 8px;
+  padding: 5px 8px;
+  border-radius: 6px;
   border: 2px solid transparent;
   width: 100%;
-  font-size: 11px;
+  font-size: 10px;
   font-family: 'Poppins', sans-serif;
   background: rgba(255,255,255,0.92);
   color: var(--preto);
@@ -193,7 +198,7 @@ main {
 
 .btn-group {
   display: flex;
-  gap: 6px;
+  gap: 5px;
 }
 
 /* =============================
@@ -201,14 +206,14 @@ main {
 ============================= */
 .btn-select {
   flex: 1;
-  padding: 6px 4px;
+  padding: 5px 4px;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   background: var(--azul);
   color: white;
   font-weight: 700;
   font-family: 'Poppins', sans-serif;
-  font-size: 10px;
+  font-size: 9px;
   cursor: pointer;
   transition: background 0.2s, transform 0.15s;
 }
@@ -218,36 +223,32 @@ main {
   transform: scale(1.04);
 }
 
-.btn-random {
-  background: #2e7d32;
-}
-.btn-random:hover {
-  background: #1b5e20;
-}
+.btn-random { background: #2e7d32; }
+.btn-random:hover { background: #1b5e20; }
 
 /* =============================
    BOTÃO BATALHAR — FIXO NO RODAPÉ
 ============================= */
 .battle-section {
   position: fixed;
-  bottom: 16px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 99;
 }
 
 .btn-battle {
-  padding: 12px 36px;
-  font-size: clamp(11px, 2vw, 16px);
+  padding: 10px 30px;
+  font-size: clamp(9px, 1.6vw, 14px);
   font-family: 'Press Start 2P', monospace;
   background: linear-gradient(135deg, var(--vermelho), #ff5722);
   border: none;
-  border-radius: 14px;
+  border-radius: 12px;
   color: white;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 6px 20px rgba(204,0,0,0.5);
+  box-shadow: 0 5px 18px rgba(204,0,0,0.5);
   text-shadow: 1px 1px 3px #000;
   animation: pulse 2s infinite;
   white-space: nowrap;
@@ -255,7 +256,7 @@ main {
 
 .btn-battle:hover {
   transform: scale(1.07);
-  box-shadow: 0 10px 30px rgba(204,0,0,0.7);
+  box-shadow: 0 8px 26px rgba(204,0,0,0.7);
 }
 
 .btn-battle:disabled {
@@ -266,13 +267,11 @@ main {
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 6px 20px rgba(204,0,0,0.5); }
-  50%       { box-shadow: 0 6px 30px rgba(204,0,0,0.9); }
+  0%, 100% { box-shadow: 0 5px 18px rgba(204,0,0,0.5); }
+  50%       { box-shadow: 0 5px 26px rgba(204,0,0,0.9); }
 }
 
-.hidden {
-  display: none !important;
-}
+.hidden { display: none !important; }
 
 /* =============================
    DISPLAY E CARD DO POKÉMON
@@ -285,38 +284,41 @@ main {
 }
 
 .pokemon-card {
-  margin-top: 6px;
+  margin-top: 4px;
   animation: fadeIn 0.4s ease;
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ← tamanho da imagem do Pokémon */
 .pokemon-img {
-  width: clamp(50px, 8vw, 90px);
+  width: clamp(44px, 7vw, 80px);
   display: block;
-  margin: 0 auto 4px;
+  margin: 0 auto 3px;
   animation: float 3s ease-in-out infinite;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.5));
   flex-shrink: 0;
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-6px); }
+  50%       { transform: translateY(-5px); }
 }
 
+/* ← tamanho do nome do Pokémon */
 .pokemon-name {
-  font-size: clamp(9px, 1.5vw, 12px);
+  font-size: clamp(8px, 1.3vw, 11px);
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--branco);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 /* =============================
@@ -324,16 +326,16 @@ main {
 ============================= */
 .tipos {
   display: flex;
-  gap: 4px;
+  gap: 3px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .tipo {
-  padding: 2px 6px;
+  padding: 1px 5px;
   border-radius: 20px;
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -362,26 +364,29 @@ main {
 
 /* =============================
    BARRAS DE STATS
+   ↕ Mexa em height para grossura das barras
+   ↔ Mexa em font-size dos labels para tamanho do texto
 ============================= */
 .stats-list {
   display: flex;
   flex-direction: column;
   gap: 2px;
   text-align: left;
-  margin: 4px 0;
+  width: 100%;
+  margin: 3px 0;
 }
 
 .stat-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
 }
 
 .stat-label {
-  font-size: 8px;
+  font-size: 7px;          /* ← tamanho do texto HP, ATK... */
   font-weight: 700;
   color: rgba(255,255,255,0.8);
-  width: 22px;
+  width: 20px;
   flex-shrink: 0;
 }
 
@@ -389,7 +394,7 @@ main {
   flex: 1;
   background: rgba(255,255,255,0.15);
   border-radius: 10px;
-  height: 6px;
+  height: 5px;             /* ← grossura da barra */
   overflow: hidden;
 }
 
@@ -400,18 +405,18 @@ main {
 }
 
 .stat-val {
-  font-size: 8px;
+  font-size: 7px;          /* ← tamanho dos números dos stats */
   color: var(--branco);
-  width: 22px;
+  width: 20px;
   text-align: right;
   flex-shrink: 0;
 }
 
 .total-stats {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   color: var(--amarelo);
-  margin-top: 4px;
+  margin-top: 3px;
   text-shadow: 1px 1px #000;
 }
 
@@ -421,9 +426,9 @@ main {
 .player-total {
   background: rgba(255,203,5,0.15);
   border: 1px solid var(--amarelo);
-  border-radius: 8px;
-  padding: 6px 12px;
-  font-size: clamp(10px, 1.5vw, 12px);
+  border-radius: 7px;
+  padding: 4px 10px;
+  font-size: clamp(9px, 1.3vw, 11px);
   font-weight: 700;
   color: var(--amarelo);
   width: 100%;
@@ -431,9 +436,9 @@ main {
 }
 
 .player-total span {
-  font-size: clamp(13px, 2.5vw, 18px);
+  font-size: clamp(12px, 2vw, 16px);
   display: block;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 /* =============================
@@ -441,9 +446,9 @@ main {
 ============================= */
 .vs {
   font-family: 'Press Start 2P', monospace;
-  font-size: clamp(20px, 4vw, 40px);
+  font-size: clamp(16px, 3vw, 32px);
   color: var(--branco);
-  text-shadow: 3px 3px var(--preto), 0 0 20px var(--amarelo);
+  text-shadow: 2px 2px var(--preto), 0 0 16px var(--amarelo);
   align-self: center;
   flex-shrink: 0;
 }
@@ -452,13 +457,13 @@ main {
    LOADING
 ============================= */
 .loading {
-  padding: 12px;
-  font-size: 11px;
+  padding: 10px;
+  font-size: 10px;
   color: rgba(255,255,255,0.7);
 }
 
 .pokeball-spin {
-  font-size: 20px;
+  font-size: 18px;
   display: inline-block;
   animation: spin 0.8s linear infinite;
 }
@@ -474,10 +479,10 @@ main {
 .error-msg {
   background: rgba(204,0,0,0.3);
   border: 1px solid var(--vermelho);
-  border-radius: 8px;
-  padding: 8px;
-  margin-top: 8px;
-  font-size: 10px;
+  border-radius: 7px;
+  padding: 7px;
+  margin-top: 6px;
+  font-size: 9px;
   color: #ffb3b3;
   animation: fadeIn 0.3s ease;
 }
@@ -499,11 +504,11 @@ main {
 .modal-box {
   background: linear-gradient(160deg, #1a1a2e, #16213e);
   border: 2px solid var(--amarelo);
-  padding: clamp(20px, 4vw, 40px);
-  border-radius: 20px;
+  padding: clamp(18px, 4vw, 36px);
+  border-radius: 18px;
   text-align: center;
   box-shadow: 0 0 40px rgba(255,203,5,0.3);
-  max-width: 480px;
+  max-width: 440px;
   width: 100%;
   animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
 }
@@ -514,8 +519,8 @@ main {
 }
 
 .modal-trophy {
-  font-size: clamp(40px, 8vw, 64px);
-  margin-bottom: 10px;
+  font-size: clamp(36px, 7vw, 58px);
+  margin-bottom: 8px;
   animation: bounce 0.6s ease 0.3s both;
 }
 
@@ -527,18 +532,18 @@ main {
 
 .modal-box h2 {
   font-family: 'Press Start 2P', monospace;
-  font-size: clamp(12px, 2.5vw, 18px);
+  font-size: clamp(11px, 2vw, 17px);
   color: var(--amarelo);
   text-shadow: 2px 2px var(--preto);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   line-height: 1.6;
 }
 
 .modal-scores {
   background: rgba(255,255,255,0.05);
   border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 20px;
+  padding: 12px;
+  margin-bottom: 18px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -552,16 +557,8 @@ main {
   flex-wrap: wrap;
 }
 
-.score-label {
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.score-value {
-  font-size: 13px;
-  color: var(--amarelo);
-  font-weight: 700;
-}
+.score-label { font-weight: 700; font-size: 13px; }
+.score-value { font-size: 13px; color: var(--amarelo); font-weight: 700; }
 
 .bonus-tag {
   background: #2e7d32;
@@ -575,14 +572,61 @@ main {
 }
 
 .btn-reiniciar {
-  font-size: 14px;
-  padding: 11px 26px;
+  font-size: 13px;
+  padding: 10px 24px;
   background: var(--azul);
 }
 
 /* =============================
    FOOTER — OCULTO
 ============================= */
-footer {
-  display: none;
+footer { display: none; }
+
+/* =============================
+   MEDIA QUERIES — TABLET (≥600px)
+============================= */
+@media (min-width: 600px) {
+  .player-area {
+    max-width: 400px;
+    min-height: 300px;
+    max-height: 500px;
+  }
+  .slot { padding: 8px; }
+}
+
+/* =============================
+   MEDIA QUERIES — DESKTOP (≥960px)
+============================= */
+@media (min-width: 960px) {
+  .arena {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: nowrap;
+  }
+
+  .player-area {
+    max-width: 400px;       /* ← LARGURA no desktop */
+    min-height: 300px;      /* ← ALTURA MÍNIMA no desktop */
+    max-height: 500px;      /* ← ALTURA MÁXIMA no desktop */
+    flex: 1;
+  }
+
+  .vs { align-self: center; flex-shrink: 0; }
+
+  .header-container h1 { font-size: 22px; }
+}
+
+/* =============================
+   MEDIA QUERIES — WIDE DESKTOP (≥1200px)
+============================= */
+@media (min-width: 1200px) {
+  .player-area {
+    max-width: 400px;
+    min-height: 300px;
+    max-height: 500px;
+  }
+
+  .pokemon-img { width: 90px; }
 }
