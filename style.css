@@ -52,7 +52,7 @@ body {
 ============================= */
 header {
   background: rgba(0,0,0,0.75);
-  padding: 5px 16px;
+  padding: 4px 16px;        /* ← reduzido de 8px para 4px */
   border-bottom: 2px solid var(--amarelo);
   flex-shrink: 0;
 }
@@ -66,14 +66,14 @@ header {
 
 .header-container h1 {
   font-family: 'Press Start 2P', monospace;
-  font-size: clamp(10px, 2vw, 20px);
+  font-size: clamp(14px, 2.5vw, 26px);    /* ← aumentado de clamp(10px, 2vw, 20px) */
   color: var(--amarelo);
   text-shadow: 2px 2px 0 var(--preto), -1px -1px 0 var(--vermelho);
   letter-spacing: 1px;
 }
 
 .logo {
-  width: clamp(24px, 4vw, 36px);
+  width: clamp(32px, 5vw, 48px);    /* ← aumentado de clamp(24px, 4vw, 36px) */
   height: auto;
   border-radius: 50%;
 }
@@ -114,9 +114,9 @@ main {
   padding: 7px;
   border-radius: var(--radius);
   flex: 1;
-  max-width: 400px;       /* ← LARGURA do card */
-  min-height: 300px;      /* ← ALTURA MÍNIMA do card */
-  max-height: 500px;      /* ← ALTURA MÁXIMA do card */
+  max-width: 480px;       /* ← LARGURA do card (aumentada de 400px) */
+  min-height: 360px;      /* ← ALTURA MÍNIMA do card (aumentada de 300px) */
+  max-height: 580px;      /* ← ALTURA MÁXIMA do card (aumentada de 500px) */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -587,9 +587,9 @@ footer { display: none; }
 ============================= */
 @media (min-width: 600px) {
   .player-area {
-    max-width: 400px;
-    min-height: 300px;
-    max-height: 500px;
+    max-width: 480px;      /* ← LARGURA aumentada */
+    min-height: 360px;     /* ← ALTURA MÍNIMA aumentada */
+    max-height: 580px;     /* ← ALTURA MÁXIMA aumentada */
   }
   .slot { padding: 8px; }
 }
@@ -607,9 +607,9 @@ footer { display: none; }
   }
 
   .player-area {
-    max-width: 400px;       /* ← LARGURA no desktop */
-    min-height: 300px;      /* ← ALTURA MÍNIMA no desktop */
-    max-height: 500px;      /* ← ALTURA MÁXIMA no desktop */
+    max-width: 480px;       /* ← LARGURA no desktop aumentada */
+    min-height: 360px;      /* ← ALTURA MÍNIMA no desktop aumentada */
+    max-height: 580px;      /* ← ALTURA MÁXIMA no desktop aumentada */
     flex: 1;
   }
 
@@ -623,9 +623,9 @@ footer { display: none; }
 ============================= */
 @media (min-width: 1200px) {
   .player-area {
-    max-width: 400px;
-    min-height: 300px;
-    max-height: 500px;
+    max-width: 480px;      /* ← LARGURA aumentada */
+    min-height: 360px;     /* ← ALTURA MÍNIMA aumentada */
+    max-height: 580px;     /* ← ALTURA MÁXIMA aumentada */
   }
 
   .pokemon-img { width: 90px; }
