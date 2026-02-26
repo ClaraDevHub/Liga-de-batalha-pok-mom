@@ -51,9 +51,7 @@ body {
    HEADER — COMPACTO
 ============================= */
 header {
-  background: rgba(0,0,0,0.75);
-  padding: 4px 16px;        /* ← reduzido de 8px para 4px */
-  border-bottom: 2px solid var(--amarelo);
+  background: transparent;
   flex-shrink: 0;
 }
 
@@ -73,9 +71,9 @@ header {
 }
 
 .logo {
-  width: clamp(32px, 5vw, 48px);    /* ← aumentado de clamp(24px, 4vw, 36px) */
+  width: clamp(150px, 14vw, 200px);  
   height: auto;
-  border-radius: 50%;
+  border-radius: contain;
 }
 
 /* =============================
@@ -111,16 +109,16 @@ main {
   background: var(--cinza);
   border: 2px solid rgba(255,255,255,0.15);
   backdrop-filter: blur(6px);
-  padding: 7px;
+  padding: 14px;
   border-radius: var(--radius);
   flex: 1;
-  max-width: 480px;       /* ← LARGURA do card (aumentada de 400px) */
-  min-height: 360px;      /* ← ALTURA MÍNIMA do card (aumentada de 300px) */
-  max-height: 580px;      /* ← ALTURA MÁXIMA do card (aumentada de 500px) */
+  max-width: 820px;       /* ← LARGURA do card (aumentada de 400px) */
+  min-height: 700px;      /* ← ALTURA MÍNIMA do card (aumentada de 300px) */
+       /* ← ALTURA MÁXIMA do card (aumentada de 500px) */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
   box-shadow: 0 6px 24px rgba(0,0,0,0.5);
   overflow: hidden;
 }
@@ -129,7 +127,9 @@ main {
   font-family: 'Press Start 2P', monospace;
   font-size: clamp(8px, 1.2vw, 12px);
   color: var(--amarelo);
-  text-shadow: 1px 1px var(--preto);
+  text-shadow:
+    2px 2px 0 var(--vermelho),
+    4px 4px 0 var(--preto);
   flex-shrink: 0;
 }
 
@@ -151,13 +151,11 @@ main {
 ============================= */
 .slot {
   background: rgba(255,255,255,0.07);
-  border-radius: 7px;
-  padding: 6px;             /* ← espaço interno do card do Pokémon */
+  border-radius: 10px;
+  padding: 12px;
   flex: 1;
-  min-width: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .slot h3 {
@@ -346,19 +344,19 @@ main {
 .tipo-fire      { background: #F08030; }
 .tipo-water     { background: #6890F0; }
 .tipo-grass     { background: #78C850; }
-.tipo-electric  { background: #F8D030; color: #333; }
-.tipo-ice       { background: #98D8D8; color: #333; }
+.tipo-electric  { background: #F8D030; }
+.tipo-ice       { background: #98D8D8; }
 .tipo-fighting  { background: #C03028; }
 .tipo-poison    { background: #A040A0; }
-.tipo-ground    { background: #E0C068; color: #333; }
+.tipo-ground    { background: #E0C068; }
 .tipo-flying    { background: #A890F0; }
 .tipo-psychic   { background: #F85888; }
 .tipo-bug       { background: #A8B820; }
 .tipo-rock      { background: #B8A038; }
 .tipo-ghost     { background: #705898; }
 .tipo-dragon    { background: #7038F8; }
-.tipo-dark      { background: #705848; }
-.tipo-steel     { background: #B8B8D0; color: #333; }
+.tipo-dark      { background: #201524; }
+.tipo-steel     { background: #B8B8D0; }
 .tipo-fairy     { background: #EE99AC; }
 .tipo-normal    { background: #A8A878; }
 
@@ -447,10 +445,12 @@ main {
 .vs {
   font-family: 'Press Start 2P', monospace;
   font-size: clamp(16px, 3vw, 32px);
-  color: var(--branco);
-  text-shadow: 2px 2px var(--preto), 0 0 16px var(--amarelo);
+  color: var(--amarelo);
   align-self: center;
   flex-shrink: 0;
+  text-shadow:
+    2px 2px 0 var(--vermelho),
+    4px 4px 0 var(--preto);
 }
 
 /* =============================
@@ -618,6 +618,26 @@ footer { display: none; }
   .header-container h1 { font-size: 22px; }
 }
 
+
+@media (max-width: 768px){
+
+  .arena{
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .player-area{
+    max-width: 95% !important;
+    min-height: auto !important;
+  }
+
+  .vs{
+    font-size: 40px !important;
+  }
+
+}
+
+
 /* =============================
    MEDIA QUERIES — WIDE DESKTOP (≥1200px)
 ============================= */
@@ -629,4 +649,92 @@ footer { display: none; }
   }
 
   .pokemon-img { width: 90px; }
+}
+
+
+/* =============================
+   PLAYER AREA — BOX MAIOR TESTES
+============================= */
+
+.player-area{
+  max-width: 720px !important;     /* largura maior */
+  min-height: 600px !important;    /* altura mínima maior */
+  max-height: 90vh !important;     /* ocupa quase toda tela */
+  padding: 24px !important;
+}
+
+/* =============================
+   SLOT INTERNO MAIOR
+============================= */
+
+.slot{
+  padding: 18px !important;
+}
+
+/* =============================
+   IMAGEM DO POKÉMON MAIOR
+============================= */
+
+.pokemon-img{
+  width: clamp(90px, 12vw, 160px) !important;
+}
+
+/* =============================
+   NOME DO POKÉMON MAIOR
+============================= */
+
+.pokemon-name{
+  font-size: clamp(12px, 1.8vw, 18px) !important;
+}
+
+/* =============================
+   TIPOS MAIORES
+============================= */
+
+.tipo{
+  font-size: clamp(9px, 1.2vw, 12px) !important;
+  padding: 4px 10px !important;
+}
+
+/* =============================
+   BARRAS DE STATS MAIS GROSSAS
+============================= */
+
+.stat-bar-bg{
+  height: 10px !important;
+}
+
+.stat-label,
+.stat-val{
+  font-size: clamp(9px, 1.2vw, 12px) !important;
+}
+
+/* =============================
+   TOTAL DO JOGADOR MAIOR
+============================= */
+
+.player-total{
+  font-size: clamp(12px, 1.6vw, 16px) !important;
+  padding: 10px !important;
+}
+
+.player-total span{
+  font-size: clamp(18px, 2.5vw, 26px) !important;
+}
+
+/* =============================
+   VS CENTRAL MAIOR
+============================= */
+
+.vs{
+  font-size: clamp(32px, 5vw, 70px) !important;
+}
+
+/* =============================
+   BOTÃO INICIAR BATALHA MAIOR
+============================= */
+
+.btn-battle{
+  font-size: clamp(14px, 2vw, 20px) !important;
+  padding: 16px 40px !important;
 }

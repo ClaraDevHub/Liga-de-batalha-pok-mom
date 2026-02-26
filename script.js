@@ -120,7 +120,7 @@ async function carregarPokemon(player, slot, nomeOuId) {
 
     if (!res.ok) {
       // API retornou erro (404 = não encontrado, etc.)
-      mostrarErro(player, slot, "❌ Pokémon não encontrado. Verifique o nome e tente novamente.");
+      mostrarErro(player, slot, "Pokémon não encontrado. Verifique o nome e tente novamente.");
       return;
     }
 
@@ -166,7 +166,7 @@ async function carregarPokemon(player, slot, nomeOuId) {
         <div class="stats-list">
           ${renderizarStats(stats, totalStats)}
         </div>
-        <p class="total-stats">⭐ Total: <strong>${totalStats}</strong></p>
+        <p class="total-stats"> Total: <strong>${totalStats}</strong></p>
       </div>`;
 
     // Toca o som do Pokémon
@@ -180,7 +180,7 @@ async function carregarPokemon(player, slot, nomeOuId) {
 
   } catch (err) {
     // Erro de rede ou outro erro inesperado
-    mostrarErro(player, slot, "⚠️ Erro de conexão. Verifique sua internet e tente novamente.");
+    mostrarErro(player, slot, " Erro de conexão. Verifique sua internet e tente novamente.");
   }
 }
 
@@ -298,12 +298,40 @@ function batalhar() {
 
   const btn = document.getElementById("btn-batalhar");
   btn.disabled = true;
-  btn.textContent = "⚡ Batalhando...";
+  btn.textContent = " Batalhando...";
 
   startBattleMusic();
 
-  // Pequeno delay dramático antes de mostrar resultado
-  setTimeout(() => {
+ // Simula impacto visual + som antes do cálculo final
+  let hits = 0;
+  const totalHits = 4; // menos golpes
+  const tempoEntreHits = 900; // mais lento (quase 1s)
+
+  const efeito = setInterval(() => {
+
+    playHit();
+
+    document.querySelectorAll(".pokemon-img").forEach(img => {
+      img.style.transform = "translateX(10px)";
+      setTimeout(() => {
+        img.style.transform = "translateX(-10px)";
+      }, 150);
+    });
+
+    hits++;
+
+    if (hits >= totalHits) {
+      clearInterval(efeito);
+      setTimeout(() => {
+        calcularResultadoFinal();
+      }, 600);
+    }
+
+  }, tempoEntreHits);
+}
+
+ function calcularResultadoFinal() {
+
     const p1 = [estado[1].s1, estado[1].s2];
     const p2 = [estado[2].s1, estado[2].s2];
 
@@ -319,8 +347,7 @@ function batalhar() {
     const totalP2Final = Math.round(totalP2Raw * multP2);
 
     playVictory();
-    mostrarResultado(totalP1Final, totalP2Final, multP1, multP2, totalP1Raw, totalP2Raw);
-  }, 1500);
+  mostrarResultado(totalP1Final, totalP2Final, multP1, multP2, totalP1Raw, totalP2Raw);
 }
 
 // =================================
@@ -328,17 +355,16 @@ function batalhar() {
 // =================================
 function mostrarResultado(totalP1, totalP2, multP1, multP2, rawP1, rawP2) {
   let titulo = "";
-  let trophy = "🏆";
+  let trophy = "";
 
   if (totalP1 > totalP2) {
-    titulo = "⚔️ Jogador 1 Venceu!";
-    trophy = "🥇";
+    titulo = " Jogador 1 Venceu!";
+    trophy = "";
   } else if (totalP2 > totalP1) {
-    titulo = "🛡️ Jogador 2 Venceu!";
-    trophy = "🥇";
+    titulo = " Jogador 2 Venceu!";
+
   } else {
-    titulo = "🤝 Empate!";
-    trophy = "🤝";
+    titulo = " Empate!";
   }
 
   document.getElementById("resultado").textContent = titulo;
@@ -350,11 +376,11 @@ function mostrarResultado(totalP1, totalP2, multP1, multP2, rawP1, rawP2) {
 
   document.getElementById("modal-scores").innerHTML = `
     <div class="score-row">
-      <span class="score-label">⚔️ Jogador 1</span>
+      <span class="score-label"> Jogador 1</span>
       <span class="score-value">${rawP1}${multP1 > 1 ? ` → ${totalP1}` : ""}${bonusP1}</span>
     </div>
     <div class="score-row">
-      <span class="score-label">🛡️ Jogador 2</span>
+      <span class="score-label"> Jogador 2</span>
       <span class="score-value">${rawP2}${multP2 > 1 ? ` → ${totalP2}` : ""}${bonusP2}</span>
     </div>`;
 
@@ -388,7 +414,7 @@ function reiniciar() {
   const btn = document.getElementById("btn-batalhar");
   btn.classList.add("hidden");
   btn.disabled = false;
-  btn.textContent = "⚡ INICIAR BATALHA ⚡";
+  btn.textContent = " INICIAR BATALHA ";
 
   // Fecha modal
   document.getElementById("modal").style.display = "none";
