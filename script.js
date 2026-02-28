@@ -8,10 +8,8 @@ const estado = {
   2: { s1: null, s2: null }
 };
 
-// =================================
 // TABELA DE VANTAGEM DE TIPO
 // Se o jogador tiver vantagem, ganha +15% nos stats finais
-// =================================
 const vantagemTipo = {
   fire:    ["grass", "ice", "bug", "steel"],
   water:   ["fire", "ground", "rock"],
@@ -33,9 +31,7 @@ const vantagemTipo = {
   normal:  [],
 };
 
-// =================================
 // SONS
-// =================================
 const sounds = {
   battle:  new Audio("sounds/battle.mp3"),
   hit:     new Audio("sounds/hit.mp3"),
@@ -66,9 +62,7 @@ function playCry(name) {
   cry.play().catch(() => {});
 }
 
-// =================================
 // BUSCAR POKÉMON (por nome/id)
-// =================================
 async function buscarPokemon(player, slot) {
   unlockAudio();
   playClick();
@@ -82,9 +76,7 @@ async function buscarPokemon(player, slot) {
   await carregarPokemon(player, slot, nome);
 }
 
-// =================================
 // POKÉMON ALEATÓRIO
-// =================================
 async function pokemonAleatorio(player, slot) {
   unlockAudio();
   playClick();
@@ -92,19 +84,7 @@ async function pokemonAleatorio(player, slot) {
   await carregarPokemon(player, slot, id);
 }
 
-// =================================
 // CARREGAR POKÉMON DA POKEAPI
-// Endpoint: GET https://pokeapi.co/api/v2/pokemon/{name ou id}
-//
-// Dados que usamos da resposta:
-//   data.name           → nome do pokémon
-//   data.types[]        → array de tipos (ex: [{type:{name:"fire"}}, ...])
-//   data.stats[]        → array de stats na ordem:
-//                         [0]=hp, [1]=attack, [2]=defense,
-//                         [3]=special-attack, [4]=special-defense, [5]=speed
-//   data.sprites.other["official-artwork"].front_default → imagem HD
-//   data.cries.latest   → URL do som do pokémon (novo campo da API)
-// =================================
 async function carregarPokemon(player, slot, nomeOuId) {
   const display = document.getElementById(`display-p${player}-s${slot}`);
 
@@ -184,10 +164,7 @@ async function carregarPokemon(player, slot, nomeOuId) {
   }
 }
 
-// =================================
 // RENDERIZAR BARRAS DE STATS
-// Cada stat tem uma barra colorida proporcional (max 255)
-// =================================
 function renderizarStats(stats, total) {
   const labels = {
     hp: "HP",
@@ -217,9 +194,7 @@ function renderizarStats(stats, total) {
   `).join("");
 }
 
-// =================================
 // TRADUZ TIPOS PARA PORTUGUÊS
-// =================================
 function traduzirTipo(tipo) {
   const traducoes = {
     fire:"Fogo", water:"Água", grass:"Planta", electric:"Elétrico",
@@ -231,9 +206,7 @@ function traduzirTipo(tipo) {
   return traducoes[tipo] || tipo;
 }
 
-// =================================
 // MOSTRA ERRO NO DISPLAY
-// =================================
 function mostrarErro(player, slot, msg) {
   const display = document.getElementById(`display-p${player}-s${slot}`);
   display.innerHTML = `<div class="error-msg">${msg}</div>`;
@@ -242,9 +215,7 @@ function mostrarErro(player, slot, msg) {
   verificarBotao();
 }
 
-// =================================
 // ATUALIZA O TOTAL DE STATS DO JOGADOR
-// =================================
 function atualizarTotalJogador(player) {
   const s1 = estado[player].s1;
   const s2 = estado[player].s2;
@@ -257,21 +228,13 @@ function atualizarTotalJogador(player) {
   }
 }
 
-// =================================
 // VERIFICA SE PODE MOSTRAR O BOTÃO BATALHAR
-// Só aparece quando os 4 slots estão preenchidos
-// =================================
 function verificarBotao() {
   const tudo = estado[1].s1 && estado[1].s2 && estado[2].s1 && estado[2].s2;
   document.getElementById("btn-batalhar").classList.toggle("hidden", !tudo);
 }
 
-// =================================
 // CALCULAR VANTAGEM DE TIPO
-// Retorna o multiplicador (1.15 se tiver vantagem, senão 1.0)
-// Lógica: se QUALQUER tipo de um dos pokémons do jogador tem vantagem
-//         sobre QUALQUER tipo de um dos pokémons adversários
-// =================================
 function calcularMultiplicador(pokemonsAtacante, pokemonsDefensor) {
   const tiposAtacante = pokemonsAtacante.flatMap(p => p.tipos);
   const tiposDefensor = pokemonsDefensor.flatMap(p => p.tipos);
@@ -289,9 +252,8 @@ function calcularMultiplicador(pokemonsAtacante, pokemonsDefensor) {
   return temVantagem ? 1.15 : 1.0;
 }
 
-// =================================
+
 // BATALHAR
-// =================================
 function batalhar() {
   unlockAudio();
   playClick();
@@ -350,9 +312,7 @@ function batalhar() {
   mostrarResultado(totalP1Final, totalP2Final, multP1, multP2, totalP1Raw, totalP2Raw);
 }
 
-// =================================
 // MOSTRAR RESULTADO NO MODAL
-// =================================
 function mostrarResultado(totalP1, totalP2, multP1, multP2, rawP1, rawP2) {
   let titulo = "";
   let trophy = "";
@@ -387,9 +347,7 @@ function mostrarResultado(totalP1, totalP2, multP1, multP2, rawP1, rawP2) {
   document.getElementById("modal").style.display = "flex";
 }
 
-// =================================
 // REINICIAR O JOGO
-// =================================
 function reiniciar() {
   unlockAudio();
   playClick();
@@ -420,9 +378,7 @@ function reiniciar() {
   document.getElementById("modal").style.display = "none";
 }
 
-// =================================
-// EVENTO: botão batalhar
-// =================================
+// botão batalhar
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-batalhar").addEventListener("click", batalhar);
 });
