@@ -40,7 +40,7 @@ const sounds = {
 };
 sounds.battle.loop = true;
 sounds.battle.volume = 0.4;
-sounds.hit.volume = 0.7;
+sounds.hit.volume = 0.4;
 sounds.victory.volume = 0.7;
 sounds.click.volume = 0.5;
 
