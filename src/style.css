@@ -1,5 +1,5 @@
 /* =============================
-   VARIÁVEIS E RESET
+    VARIÁVEIS E RESET
 ============================= */
 :root {
   --azul:      #3b4cca;
@@ -30,11 +30,11 @@
 }
 
 /* =============================
-   BODY — SEM SCROLL, TELA CHEIA
+    BODY — SEM SCROLL, TELA CHEIA
 ============================= */
 html, body {
-  height: 100%;
-  overflow: hidden;
+  scroll-behavior: smooth;
+  min-height: 100%;
 }
 
 body {
@@ -45,10 +45,13 @@ body {
   background-size: cover;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* =============================
-   HEADER — COMPACTO
+    HEADER — COMPACTO
 ============================= */
 header {
   background: transparent;
@@ -77,18 +80,17 @@ header {
 }
 
 /* =============================
-   MAIN
+    MAIN
 ============================= */
 main {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 6px 10px 54px;
-  overflow: hidden;
 }
 
 /* =============================
-   ARENA
+    ARENA
 ============================= */
 .arena {
   display: flex;
@@ -97,30 +99,28 @@ main {
   justify-content: center;
   gap: 10px;
   flex: 1;
-  overflow: hidden;
 }
 
 /* =============================
-   PLAYER AREA — CARD PRINCIPAL
-   ↕ Mexa em min-height e max-height para controlar a altura
-   ↔ Mexa em max-width para controlar a largura
+    PLAYER AREA — CARD PRINCIPAL
+    ↕ Mexa em min-height e max-height para controlar a altura
+    ↔ Mexa em max-width para controlar a largura
 ============================= */
 .player-area {
   background: var(--cinza);
   border: 2px solid rgba(255,255,255,0.15);
   backdrop-filter: blur(6px);
-  padding: 14px;
+  padding: 24px;
   border-radius: var(--radius);
   flex: 1;
-  max-width: 820px;       /* ← LARGURA do card (aumentada de 400px) */
-  min-height: 700px;      /* ← ALTURA MÍNIMA do card (aumentada de 300px) */
-       /* ← ALTURA MÁXIMA do card (aumentada de 500px) */
+  max-width: 720px;       /* ← LARGURA do card (aumentada de 400px) */
+  min-height: 600px;      /* ← ALTURA MÍNIMA do card (aumentada de 300px) */
+  max-height: 90vh;       /* ← ALTURA MÁXIMA do card (aumentada de 500px) */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   box-shadow: 0 6px 24px rgba(0,0,0,0.5);
-  overflow: hidden;
 }
 
 .player-area h2 {
@@ -134,7 +134,7 @@ main {
 }
 
 /* =============================
-   SLOTS LADO A LADO
+    SLOTS LADO A LADO
 ============================= */
 .slots-wrapper {
   display: flex;
@@ -142,17 +142,16 @@ main {
   gap: 6px;
   width: 100%;
   flex: 1;
-  overflow: hidden;
 }
 
 /* =============================
-   SLOT — CARD INTERNO DO POKÉMON
-   ↕ Mexa em padding para dar mais ou menos espaço interno
+    SLOT — CARD INTERNO DO POKÉMON
+    ↕ Mexa em padding para dar mais ou menos espaço interno
 ============================= */
 .slot {
   background: rgba(255,255,255,0.07);
   border-radius: 10px;
-  padding: 12px;
+  padding: 18px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -168,7 +167,7 @@ main {
 }
 
 /* =============================
-   FORMULÁRIO DE BUSCA
+    FORMULÁRIO DE BUSCA
 ============================= */
 .selection-box {
   display: flex;
@@ -200,7 +199,7 @@ main {
 }
 
 /* =============================
-   BOTÕES
+    BOTÕES
 ============================= */
 .btn-select {
   flex: 1;
@@ -225,7 +224,7 @@ main {
 .btn-random:hover { background: #1b5e20; }
 
 /* =============================
-   BOTÃO BATALHAR — FIXO NO RODAPÉ
+    BOTÃO BATALHAR — FIXO NO RODAPÉ
 ============================= */
 .battle-section {
   position: fixed;
@@ -236,8 +235,8 @@ main {
 }
 
 .btn-battle {
-  padding: 10px 30px;
-  font-size: clamp(9px, 1.6vw, 14px);
+  padding: 16px 40px;
+  font-size: clamp(14px, 2vw, 20px);
   font-family: 'Press Start 2P', monospace;
   background: linear-gradient(135deg, var(--vermelho), #ff5722);
   border: none;
@@ -269,14 +268,13 @@ main {
   50%       { box-shadow: 0 5px 26px rgba(204,0,0,0.9); }
 }
 
-.hidden { display: none !important; }
+.hidden { display: none  }
 
 /* =============================
-   DISPLAY E CARD DO POKÉMON
+    DISPLAY E CARD DO POKÉMON
 ============================= */
 .pokemon-display {
   flex: 1;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -297,7 +295,7 @@ main {
 
 /* ← tamanho da imagem do Pokémon */
 .pokemon-img {
-  width: clamp(44px, 7vw, 80px);
+  width: clamp(90px, 12vw, 160px);
   display: block;
   margin: 0 auto 3px;
   animation: float 3s ease-in-out infinite;
@@ -312,7 +310,7 @@ main {
 
 /* ← tamanho do nome do Pokémon */
 .pokemon-name {
-  font-size: clamp(8px, 1.3vw, 11px);
+  font-size: clamp(12px, 1.8vw, 18px);
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--branco);
@@ -320,7 +318,7 @@ main {
 }
 
 /* =============================
-   TIPOS
+    TIPOS
 ============================= */
 .tipos {
   display: flex;
@@ -331,9 +329,9 @@ main {
 }
 
 .tipo {
-  padding: 1px 5px;
+  padding: 4px 10px;
   border-radius: 20px;
-  font-size: 7px;
+  font-size: clamp(9px, 1.2vw, 12px);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -361,9 +359,9 @@ main {
 .tipo-normal    { background: #A8A878; }
 
 /* =============================
-   BARRAS DE STATS
-   ↕ Mexa em height para grossura das barras
-   ↔ Mexa em font-size dos labels para tamanho do texto
+    BARRAS DE STATS
+    ↕ Mexa em height para grossura das barras
+    ↔ Mexa em font-size dos labels para tamanho do texto
 ============================= */
 .stats-list {
   display: flex;
@@ -381,7 +379,7 @@ main {
 }
 
 .stat-label {
-  font-size: 7px;          /* ← tamanho do texto HP, ATK... */
+  font-size: clamp(9px, 1.2vw, 12px);          /* ← tamanho do texto HP, ATK... */
   font-weight: 700;
   color: rgba(255,255,255,0.8);
   width: 20px;
@@ -392,7 +390,7 @@ main {
   flex: 1;
   background: rgba(255,255,255,0.15);
   border-radius: 10px;
-  height: 5px;             /* ← grossura da barra */
+  height: 10px;             /* ← grossura da barra */
   overflow: hidden;
 }
 
@@ -403,7 +401,7 @@ main {
 }
 
 .stat-val {
-  font-size: 7px;          /* ← tamanho dos números dos stats */
+  font-size: clamp(9px, 1.2vw, 12px);          /* ← tamanho dos números dos stats */
   color: var(--branco);
   width: 20px;
   text-align: right;
@@ -419,14 +417,14 @@ main {
 }
 
 /* =============================
-   TOTAL DO JOGADOR
+    TOTAL DO JOGADOR
 ============================= */
 .player-total {
   background: rgba(255,203,5,0.15);
   border: 1px solid var(--amarelo);
   border-radius: 7px;
-  padding: 4px 10px;
-  font-size: clamp(9px, 1.3vw, 11px);
+  padding: 10px;
+  font-size: clamp(12px, 1.6vw, 16px);
   font-weight: 700;
   color: var(--amarelo);
   width: 100%;
@@ -434,17 +432,17 @@ main {
 }
 
 .player-total span {
-  font-size: clamp(12px, 2vw, 16px);
+  font-size: clamp(18px, 2.5vw, 26px);
   display: block;
   margin-top: 1px;
 }
 
 /* =============================
-   VS CENTRAL
+    VS CENTRAL
 ============================= */
 .vs {
   font-family: 'Press Start 2P', monospace;
-  font-size: clamp(16px, 3vw, 32px);
+  font-size: clamp(32px, 5vw, 70px);
   color: var(--amarelo);
   align-self: center;
   flex-shrink: 0;
@@ -454,7 +452,7 @@ main {
 }
 
 /* =============================
-   LOADING
+    LOADING
 ============================= */
 .loading {
   padding: 10px;
@@ -474,7 +472,7 @@ main {
 }
 
 /* =============================
-   MENSAGEM DE ERRO
+    MENSAGEM DE ERRO
 ============================= */
 .error-msg {
   background: rgba(204,0,0,0.3);
@@ -488,7 +486,7 @@ main {
 }
 
 /* =============================
-   MODAL DE RESULTADO
+    MODAL DE RESULTADO
 ============================= */
 .modal {
   position: fixed;
@@ -578,12 +576,12 @@ main {
 }
 
 /* =============================
-   FOOTER — OCULTO
+    FOOTER — OCULTO
 ============================= */
 footer { display: none; }
 
 /* =============================
-   MEDIA QUERIES — TABLET (≥600px)
+    MEDIA QUERIES — TABLET (≥600px)
 ============================= */
 @media (min-width: 600px) {
   .player-area {
@@ -595,7 +593,7 @@ footer { display: none; }
 }
 
 /* =============================
-   MEDIA QUERIES — DESKTOP (≥960px)
+    MEDIA QUERIES — DESKTOP (≥960px)
 ============================= */
 @media (min-width: 960px) {
   .arena {
@@ -618,28 +616,30 @@ footer { display: none; }
   .header-container h1 { font-size: 22px; }
 }
 
-
+/* =============================
+    MEDIA QUERIES — MOBILE (≥320px)
+============================= */
 @media (max-width: 768px){
 
   .arena{
-    flex-direction: column !important;
-    gap: 20px !important;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .player-area{
-    max-width: 95% !important;
-    min-height: auto !important;
+    max-width: 95%;
+    min-height: auto;
   }
 
   .vs{
-    font-size: 40px !important;
+    font-size: 40px 
   }
 
 }
 
 
 /* =============================
-   MEDIA QUERIES — WIDE DESKTOP (≥1200px)
+    MEDIA QUERIES — WIDE DESKTOP (≥1200px)
 ============================= */
 @media (min-width: 1200px) {
   .player-area {
@@ -649,92 +649,4 @@ footer { display: none; }
   }
 
   .pokemon-img { width: 90px; }
-}
-
-
-/* =============================
-   PLAYER AREA — BOX MAIOR TESTES
-============================= */
-
-.player-area{
-  max-width: 720px !important;     /* largura maior */
-  min-height: 600px !important;    /* altura mínima maior */
-  max-height: 90vh !important;     /* ocupa quase toda tela */
-  padding: 24px !important;
-}
-
-/* =============================
-   SLOT INTERNO MAIOR
-============================= */
-
-.slot{
-  padding: 18px !important;
-}
-
-/* =============================
-   IMAGEM DO POKÉMON MAIOR
-============================= */
-
-.pokemon-img{
-  width: clamp(90px, 12vw, 160px) !important;
-}
-
-/* =============================
-   NOME DO POKÉMON MAIOR
-============================= */
-
-.pokemon-name{
-  font-size: clamp(12px, 1.8vw, 18px) !important;
-}
-
-/* =============================
-   TIPOS MAIORES
-============================= */
-
-.tipo{
-  font-size: clamp(9px, 1.2vw, 12px) !important;
-  padding: 4px 10px !important;
-}
-
-/* =============================
-   BARRAS DE STATS MAIS GROSSAS
-============================= */
-
-.stat-bar-bg{
-  height: 10px !important;
-}
-
-.stat-label,
-.stat-val{
-  font-size: clamp(9px, 1.2vw, 12px) !important;
-}
-
-/* =============================
-   TOTAL DO JOGADOR MAIOR
-============================= */
-
-.player-total{
-  font-size: clamp(12px, 1.6vw, 16px) !important;
-  padding: 10px !important;
-}
-
-.player-total span{
-  font-size: clamp(18px, 2.5vw, 26px) !important;
-}
-
-/* =============================
-   VS CENTRAL MAIOR
-============================= */
-
-.vs{
-  font-size: clamp(32px, 5vw, 70px) !important;
-}
-
-/* =============================
-   BOTÃO INICIAR BATALHA MAIOR
-============================= */
-
-.btn-battle{
-  font-size: clamp(14px, 2vw, 20px) !important;
-  padding: 16px 40px !important;
 }
