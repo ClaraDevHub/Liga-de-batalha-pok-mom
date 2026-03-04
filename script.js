@@ -33,10 +33,10 @@ const vantagemTipo = {
 
 // SONS
 const sounds = {
-  battle:  new Audio("sounds/battle.mp3"),
-  hit:     new Audio("sounds/hit.mp3"),
-  victory: new Audio("sounds/victory.mp3"),
-  click:   new Audio("sounds/click.mp3")
+  battle:  new Audio("src/sounds/battle.mp3"),
+  hit:     new Audio("src/sounds/hit.mp3"),
+  victory: new Audio("src/sounds/victory.mp3"),
+  click:   new Audio("src/sounds/click.mp3")
 };
 sounds.battle.loop = true;
 sounds.battle.volume = 0.4;
