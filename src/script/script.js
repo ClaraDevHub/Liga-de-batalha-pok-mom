@@ -33,10 +33,10 @@ const vantagemTipo = {
 
 // SONS
 const sounds = {
-  battle:  new Audio("/src/assets/sounds/battle.mp3"),
-  hit:     new Audio("/src/assets/sounds/hit.mp3"),
-  victory: new Audio("/src/assets/sounds/victory.mp3"),
-  click:   new Audio("/src/assets/sounds/click.mp3")
+  battle:  new Audio("src/assets/sounds/battle.mp3"),
+  hit:     new Audio("src/assets/sounds/hit.mp3"),
+  victory: new Audio("src/assets/sounds/victory.mp3"),
+  click:   new Audio("src/assets/sounds/click.mp3")
 };
 sounds.battle.loop = true;
 sounds.battle.volume = 0.4;
@@ -70,7 +70,7 @@ async function buscarPokemon(player, slot) {
   const nome = input.value.toLowerCase().trim();
 
   if (!nome) {
-    mostrarErro(player, slot, "⚠️ Digite um nome ou ID antes de buscar!");
+    mostrarErro(player, slot, " Digite um nome ou ID antes de buscar!");
     return;
   }
   await carregarPokemon(player, slot, nome);
